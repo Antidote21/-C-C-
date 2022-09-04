@@ -22,6 +22,24 @@ int main(){
 	return 0;
 	
 }
+#include<stdio.h>
+#include <math.h>
+//#include<string.h>
+int main(){
+	freopen("input.txt","rt",stdin);
+	int n, i=1, cnt=0, tmp=9;
+	scanf("%d", &n);
+	while(tmp<n){
+		tmp += 9*(pow(10,i));
+		cnt+=i*9*(pow(10,i-1));
+		i++;
+	}
+	tmp -=  9*(pow(10,i-1));
+	cnt += (n-tmp)*i;
+	printf("%d",cnt);
+	return 0;
+	
+}
 
 #include<stdio.h>
 int main(){
@@ -38,3 +56,4 @@ int main(){
 	printf("%d\n", res);
 	return 0;
 }
+
