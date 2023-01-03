@@ -25,3 +25,24 @@ int main() {
 	return 0;
 }
 
+#include<stdio.h>
+
+int main() {
+	//freopen("input.txt", "rt", stdin);
+	int n, a, i , cnt=-1, max=0;
+	scanf("%d", &n);
+    int angry[n] = {0};
+	for(i=0;i<n;i++){
+		scanf("%d", &a);
+		angry[i] = a;
+	}
+	for(i=n-1;i>=0; i--){
+		if(max<angry[i]){
+			max = angry[i];
+			cnt++;
+		}
+	}
+	printf("%d",cnt);
+	return 0;
+}
+
