@@ -72,3 +72,41 @@ int main(){
 	}
 	return 0;
 }
+
+#include<stdio.h>
+//a1과 b1이 각각이 오름차순인 상태에서 비교된 문제
+//투 포인터를 활용해서 오름차순인 배열을 만드는 문제이다. 
+int main(){
+	//freopen("input.txt","rt", stdin);
+	int a[101];
+	int b[101];
+	int c[300];
+	int i, n, m, p1=1, p2=1;
+	scanf("%d", &n);
+	for(i=1; i<=n; i++){
+		scanf("%d",&a[i]);
+	}
+	scanf("%d", &m);
+	for(i=1;i<=m; i++)
+	{
+		scanf("%d",&b[i]);
+	}
+	
+	for(i=1;i<=n+m; i++){ 
+		if(p1<=n && p2<=m){ //하나의 배열이 먼저 끝나면 나머지 배열 원소를 순서대로 집어넣으면 된다.  
+			if(a[p1]>=b[p2]){//a의 배열 값이 b의 배열 값보다 크면 더 작은 b의 배열 값을 집어넣고 p2를 증가시킨다.  
+				c[i]=b[p2++];
+			}
+			else{ 
+				c[i]=a[p1++];
+			}
+		}else if(p1<=n){ //b의 배열이 끝나면 남은 a의 배열의 원소를 순차적으로 c배열에 넣어 완성시킨다. 
+			c[i]=a[p1++];
+		}else{
+			c[i]=b[p2++];
+		} 
+		printf("%d ", c[i]);//완성되는 c배열의 값을 출력한다. 
+	}
+	return 0;
+}
+
