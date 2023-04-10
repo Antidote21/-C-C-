@@ -78,3 +78,46 @@ int main() {
 	printf("%d\n", cnt);
 	return 0;
 }
+
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+using namespace std;  
+int map[8][8];
+int cnt=0;//DFS 함수에서 사용해야 하므로 전역변수로 선언  
+int ch[8][8];//방문을 했는지 확인하는 배열  
+int x[4]={0,1,0,-1};
+int y[4]={1,0,-1,0};
+void DFS(int s, int e){
+	int i;
+	int p,q;
+	if(s==e && s==7){
+		cnt++;
+	}else{
+		for(i=0;i<4;i++){
+			p=s+x[i];
+			q=e+y[i];
+			if((p>0&&q>0)&&(p<8&&q<8)){
+				if(map[p][q]==0 && ch[p][q]==0){
+					ch[p][q] = 1;
+					DFS(p,q);
+					ch[p][q] = 0;
+				}	
+			}
+		}		
+	}
+}  
+int main() {
+	freopen("input.txt", "rt", stdin);
+	int i, j;
+	for(i=1; i<=7; i++){
+		for(j=1; j<=7; j++){
+			scanf("%d",&map[i][j]);
+		}
+	}
+	ch[1][1]=1;
+	DFS(1,1);
+	printf("%d\n",cnt);
+	return 0;
+}
+
