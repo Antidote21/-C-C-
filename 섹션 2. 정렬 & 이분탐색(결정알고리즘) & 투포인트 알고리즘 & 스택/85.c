@@ -1,9 +1,10 @@
 #include<stdio.h>
-#include<vector>
 #include<algorithm>
+#include<queue>
+#include<vector>
 using namespace std;
-int a[20], op[5], n, maxi=-2147000000, mini=2147000000;
-void DFS(int L, int res){
+int a[20], op[5], n, maxi=-2147000000, mini=2147000000; 
+void DFS(int L, int sum){
 	if(L==n){
 		if(res>maxi) maxi=res;
 		if(res<mini) mini=res;
@@ -31,7 +32,6 @@ void DFS(int L, int res){
 		}
 	}
 }
-	
 
 int main(){
 	freopen("input.txt", "rt", stdin);
