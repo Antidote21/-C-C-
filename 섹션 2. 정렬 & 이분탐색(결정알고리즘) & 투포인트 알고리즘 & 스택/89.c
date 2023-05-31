@@ -1,23 +1,25 @@
+//BFS 알고리즘 활용 
 #include<stdio.h>
 #include<queue>
 using namespace std;
-int m, n, tom[1010][1010], res = -2147000000, dis[1010][1010];
+int m, n, tom[1010][1010], res = -2147000000, dis[1010][1010]; 
+//상하좌우로 이동할 때 사용할 벡터 
 int dx[4] = {0, 1, 0, -1}; 
 int dy[4] = {-1, 0, 1, 0};
-struct Loc {
+struct Loc { //위치 정보를 저장하기 위한 구조체 
 	int x, y;
 	Loc(int a, int b) {
 		x = a;
 		y = b;
 	}
 };
-queue<Loc> Q;
+queue<Loc> Q; //Loc 구조체를 저장하는 큐를 선언 
 int main() {
 	scanf("%d %d", &m, &n);
 	for(int i = 1; i <= n; i++) {
 		for(int j = 1; j <= m; j++) {
 			scanf("%d", &tom[i][j]);
-			if(tom[i][j] == 1) {
+			if(tom[i][j] == 1) { //입력받은 상태가 1인 경우 해당 위치를 큐에 저장 
 				Q.push(Loc(i, j));
 			}
 		}
