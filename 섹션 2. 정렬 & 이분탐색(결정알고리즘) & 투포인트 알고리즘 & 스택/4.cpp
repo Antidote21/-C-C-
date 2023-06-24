@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 int main(){
-	ios_base::sync_with_stdio(false); 
+	ios_base::sync_with_stdio(false); //C++ 스트림과 C 스트림을 동기화하지 않음 
 	cin.tie(NULL);
 	freopen("input.txt", "rt", stdin);
 	int n, res=0;
@@ -11,6 +11,7 @@ int main(){
 		cin>>arr[i];
 	}
 	dy[1]=1;
+	//동적 프로그래밍 과정 
 	for(int i=2; i<=n; i++){
 		int max=0;
 		for(int j=i-1; j>=1; j--){
