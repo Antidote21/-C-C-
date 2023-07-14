@@ -37,4 +37,46 @@ int main(){
 	}
 	return 0;
 }
+#include<bits/stdc++.h>
+#include<queue>
+using namespace std;
+int main(){
+	ios_base::sync_with_stdio(false);
+	//freopen("input.txt", "rt", stdin);	
+	vector<int> a(11);
+	vector<int> b(11);
+	int Ascore=0, Bscore=0, winner=0;
+	for(int i=1; i<=10; i++){
+		cin>>a[i];
+	}
+	for(int i=1; i<=10; i++){
+		cin>>b[i];
+	}
+	
+	for(int i=1; i<=10; i++){
+		if(a[i]>b[i]){
+			Ascore+=3;
+			winner=1;
+		}
+		else if(a[i]==b[i]){
+			Ascore+=1;
+			Bscore+=1;
+			
+		}
+		else{
+			Bscore+=3;
+			winner=2;
+		}
+	}
+	cout<<Ascore<<" "<<Bscore<<endl;
+	if(Ascore>Bscore)cout<<"A";
+	else if(Ascore==Bscore){
+		if(Ascore==10)cout<<"D";
+		if(winner==1)cout<<"A";
+		else if(winner==2)cout<<"B";
+		
+	}
+	else cout<<"B";
+	return 0;
+}    
 
