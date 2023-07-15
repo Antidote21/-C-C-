@@ -57,3 +57,30 @@ int main(){
 	DFS(1);
 	return 0;
 }
+
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int n, ch[10];
+void D(int L){
+	if(L == n+1){
+		for(int i=1; i<=n; i++){
+			if(ch[i]==1)printf("%d ", i);
+		}
+		printf("\n");	
+	}
+	else{
+		ch[L]=1;
+		D(L+1);
+		ch[L]=0;
+		D(L+1);	
+	}
+}
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	scanf("%d", &n); 
+	D(1);
+	return 0;
+}
