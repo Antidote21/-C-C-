@@ -67,3 +67,52 @@ int main(){
 	return 0; 
 }
 
+#include<stdio.h>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int ch[10], sum=0, n, a[10];
+bool isFlag=false;
+void D(int L){
+	int total=0;
+	if(L == n+1){
+		for(int i=1; i<=n; i++){
+			if(ch[i]==1){
+				total+=a[i];
+			}		
+		}
+		if(total==sum/2){
+			isFlag=true;
+		}	
+	}
+	else{
+		ch[L]=1;
+		D(L+1);
+		ch[L]=0;
+		D(L+1);	
+	}
+}
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	scanf("%d", &n);
+	
+	for(int i=1; i<=n; i++){
+		scanf("%d", &a[i]);
+		sum+=a[i];
+	} 
+	
+	if(sum%2==1){
+		printf("NO");
+		return 0;	
+	}
+	
+	D(1);
+	
+	if(isFlag==true)printf("YES");
+	else printf("NO");
+	
+	return 0;
+}
+
+
