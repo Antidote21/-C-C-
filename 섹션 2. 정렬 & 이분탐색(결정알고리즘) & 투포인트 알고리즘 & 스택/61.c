@@ -31,3 +31,38 @@ int main(){
 	return 0; 
 }
 
+#include <iostream>
+int a[11], n, m, cnt=0, path[11];
+using namespace std;
+
+void DFS(int L, int val){
+	if(L==n+1){
+		if(val==m){
+			cnt++;
+			for(int i=1; i<L; i++){
+				printf("%d ", path[i]);
+			}
+			puts("");
+		}
+	}else{
+		path[L]=a[L];
+		DFS(L+1, val+a[L]);
+		path[L]=-a[L];
+		DFS(L+1, val-a[L]);
+		path[L]=0;
+		DFS(L+1, val);
+	}
+}
+
+int main(){
+	freopen("input.txt","rt",stdin);
+	int i;
+	cin>>n>>m;
+	for(i=1; i<=n; i++){
+		cin>>a[i];
+	}
+	DFS(1, 0);
+	if(cnt==0)cout<<"-1";
+	else cout<<cnt;
+	return 0;
+}
