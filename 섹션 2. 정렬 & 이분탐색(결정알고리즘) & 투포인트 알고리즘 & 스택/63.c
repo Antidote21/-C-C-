@@ -43,3 +43,28 @@ int main() {
 	
 	return 0;
 }
+
+#include<iostream>
+using namespace std;
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, m;
+	cin>>n>>m;
+	int map[n+1][n+1]={0};
+	for(int i=1; i<=m; i++){
+		int a,b,c;
+		cin>>a>>b>>c;
+		map[a][b]=c;
+	}
+	for(int i=1; i<=n; i++){
+		for(int j=1; j<=n; j++){
+			cout<<map[i][j]<<' ';
+		}
+		cout<<endl;
+	}
+	
+	return 0;
+}
+
+
