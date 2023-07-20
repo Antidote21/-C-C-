@@ -121,3 +121,37 @@ int main() {
 	return 0;
 }
 
+#include<iostream>
+int dx[4] = {0, 0, -1, 1};
+int dy[4] = {1, -1, 0, 0};
+using namespace std;
+int map[8][8], ch[8][8], cnt=0;
+void DFS(int x, int y){
+	if(x==7 && y==7){
+		cnt++;
+	}else{
+		for(int i=0; i<4; i++){
+			int xx, yy;
+			xx = x + dx[i];
+			yy = y + dy[i];
+			if(map[xx][yy]==0 && ch[xx][yy]==0 && (1<=xx&&xx<=7) && (1<=yy && yy<=7)){
+				ch[xx][yy]=1;
+				DFS(xx,yy);
+				ch[xx][yy]=0;
+			}
+		}
+	}
+}
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	for(int i=1; i<=7; i++){
+		for(int j=1; j<=7; j++){
+			cin>>map[i][j];
+		}	
+	}
+	ch[1][1]=1;
+	DFS(1,1);
+	cout<<cnt;
+	return 0;
+}
