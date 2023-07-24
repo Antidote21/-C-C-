@@ -6,12 +6,10 @@ using namespace std;
 int answer = 999999999;
 vector<int> goc;    
 vector<int> rem;
-bool check[16];
  
 void dfs(int s, int cnt, vector<string> minerals, vector<int> picks) {                                                
     if(cnt == s) {
         int tired = 0;
-        int tmp = 0;
         
         for(int i=0; i<minerals.size(); i++) {
             if(i/5 >= rem.size()) {
@@ -29,26 +27,16 @@ void dfs(int s, int cnt, vector<string> minerals, vector<int> picks) {
                 }
             }
             else if(minerals[i] == "iron") {
-                if(rem[i/5] == 1) {
-                    tired += 1;
-                }
-                else if(rem[i/5] == 2) {
-                    tired += 1;
-                }
-                else if(rem[i/5] == 3) {
+                if(rem[i/5] == 3) {
                     tired += 5;
+                }
+                else if(rem[i/5] == 2 || rem[i/5] == 1) {
+                    tired += 1;
                 }
             }
             else if(minerals[i] == "stone") {
-                if(rem[i/5] == 1) {
-                    tired += 1;
-                }
-                else if(rem[i/5] == 2) {
-                    tired += 1;
-                }
-                else if(rem[i/5] == 3) {
-                    tired += 1;
-                }
+                if(rem[i/5] == 3 || rem[i/5] == 2 || rem[i/5] == 1)
+                tired += 1;
             }
         }
         
