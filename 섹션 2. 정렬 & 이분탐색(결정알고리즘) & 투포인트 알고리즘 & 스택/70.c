@@ -34,6 +34,44 @@ int main() {
 	return 0;
 }
 
+#include<iostream>
+#include<vector>
+#include<queue>
+#include<algorithm>
+using namespace std;
+int ch[10], dis[10];
+vector<int> map[10];
+queue<int> Q;
+int main(){
+	freopen("input.txt", "rt", stdin);
+	int n, m, a, b, cnt=0;
+	cin>>n>>m;
+	for(int i=1; i<=m; i++){
+		cin>>a>>b;
+		map[a].push_back(b);	
+	}
+	Q.push(1);
+	ch[1]=1;
+	while(!Q.empty()){
+		int x;
+		x = Q.front();
+		Q.pop();
+		for(int i=0; i<map[x].size(); i++){
+			if(ch[map[x][i]]==0){
+				ch[map[x][i]]=1;
+				Q.push(map[x][i]);
+				dis[map[x][i]] = dis[x]+1; 
+			}
+		}		
+	}
+	
+	for(int i=2; i<=n; i++){
+		cout<<i<<":"<<dis[i]<<endl; 
+	}
+	return 0;
+}
+
+
 
 //큐에서 하나의 정점(x)을 꺼낸다. 
 //정점x와 이어진 간선들을 모두 탐색한다. 인접 리스트를 통해 이어진 정점들(map[x][i])을 확인하고, 방문 여부를 확인한다.
