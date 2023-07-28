@@ -38,3 +38,38 @@ int main(){
 	printf("%d", cnt);
 	return 0;
 }
+
+#include<iostream>
+int a[15], ch[15], res[15];
+int n, r, cnt=0;
+using namespace std;
+int DFS(int L){
+	if(L==r){
+		cnt++;
+		for(int i=0; i<r; i++){
+			cout<<res[i];
+		}
+		cout<<endl;
+	}else{
+		for(int i=1; i<=n; i++){
+			if(ch[i]==0){
+				res[L]=a[i];
+				ch[i]=1;
+				DFS(L+1);
+				ch[i]=0;
+			}
+		}
+	}
+}
+
+
+int main(){
+	freopen("input.txt", "rt", stdin);
+	cin>>n>>r;
+	for(int i=1; i<=n; i++){
+		cin>>a[i];
+	}
+	DFS(0);
+	cout<<cnt;
+	return 0;
+}
