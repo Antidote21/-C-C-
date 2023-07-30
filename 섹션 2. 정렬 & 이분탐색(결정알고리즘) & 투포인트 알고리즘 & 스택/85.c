@@ -47,3 +47,52 @@ int main(){
 	printf("%d\n%d\n", maxi, mini);
 	return 0;
 }
+#include<bits/stdc++.h>
+using namespace std;
+int n, maxValue=0, minValue=100;
+vector<int> num(10);
+vector<int> op(4);
+void DFS(int L, int sum){
+	if(L==n){
+		maxValue = max(maxValue,sum);
+		minValue = min(minValue,sum);
+	}else{		
+		if(op[0]>0){
+			op[0]--;
+			DFS(L+1, sum+num[L]);
+			op[0]++;
+		}
+		if(op[1]>0){
+			op[1]--;
+			DFS(L+1, sum-num[L]);
+			op[1]++;
+		}
+		if(op[2]>0){
+			op[2]--;
+			DFS(L+1, sum*num[L]);
+			op[2]++;
+		}
+		if(op[3]>0){
+			op[3]--;
+			DFS(L+1, sum/num[L]);
+			op[3]++;
+		}		
+	}
+}
+
+
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	freopen("input.txt", "rt", stdin);
+	cin>>n;
+	for(int i=0; i<n; i++){
+		cin>>num[i];
+	}
+	for(int i=0; i<4; i++){
+		cin>>op[i];	
+	}
+	DFS(1,num[0]);
+	cout<<maxValue<<endl<<minValue;
+	return 0;
+}
