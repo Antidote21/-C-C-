@@ -45,3 +45,45 @@ int main(){
 	}
 	printf("%d\n", cnt);
 }
+
+#include<bits/stdc++.h>
+using namespace std;
+int n, a[30][30], cnt=0; 
+int dx[8] = {0, 1, 1, 1, 0, -1, -1, -1}; 
+int dy[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
+
+queue<pair<int, int> > Q;
+int main() {
+	ios_base::sync_with_stdio(false);
+	freopen("input.txt", "rt", stdin);
+	int i, j;
+	cin>>n;
+	for(i = 1; i <= n; i++){
+		for(j = 1; j <= n; j++){
+			cin>>a[i][j];
+		}
+	}  
+	for(i = 1; i <= n; i++) {
+		for(j = 1; j <= n; j++) {
+			if(a[i][j] == 1) {
+				Q.push(make_pair(i,j));
+				a[i][j] = 0;
+				while(!Q.empty()) {
+					pair <int, int> tmp = Q.front();
+					Q.pop();
+					for(int i = 0; i < 8; i++) {
+						int xx=tmp.first+dx[i];
+						int yy=tmp.second+dy[i];
+						if(a[xx][yy] == 1) {
+							Q.push(make_pair(xx, yy));
+							a[xx][yy]= 0;
+						}
+					}
+				}
+				cnt++;
+			}
+		}
+	}
+	cout<<cnt<<endl;
+	return 0;
+}
