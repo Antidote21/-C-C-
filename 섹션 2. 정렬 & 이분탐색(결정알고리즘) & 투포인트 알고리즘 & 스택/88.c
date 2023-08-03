@@ -79,3 +79,38 @@ int main(){
 }
 
 
+
+#include<bits/stdc++.h>
+using namespace std;
+int Map[30][30]; 
+int dis[30][30];
+int dx[4] = {0,0,-1,1};
+int dy[4] = {1,-1,0,0};
+queue<pair<int, int> > Q;
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	freopen("input.txt", "rt", stdin);
+	for(int i=1; i<=7; i++){
+		for(int j=1; j<=7; j++){
+			cin>>Map[i][j];
+		}	
+	}
+	Q.push(make_pair(1, 1));
+	Map[1][1] = 1;
+	while(!Q.empty()){
+		pair <int, int> tmp = Q.front();
+		Q.pop();
+		for(int i=0; i<4; i++){
+			int xx = tmp.first + dx[i];
+			int yy = tmp.second + dy[i];
+			if(Map[xx][yy] == 0 && xx>=1 && xx<=7 && yy>=1 && yy<=7){
+				Q.push(make_pair(xx, yy));
+				Map[xx][yy] = 1;
+				dis[xx][yy] = dis[tmp.first][tmp.second] + 1;
+			}
+		}
+	}
+	cout<<dis[7][7];
+	return 0;
+}
