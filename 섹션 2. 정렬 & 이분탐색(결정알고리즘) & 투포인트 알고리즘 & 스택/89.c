@@ -56,3 +56,60 @@ int main() {
 	else printf("-1");
 	return 0;
 }
+
+#include<bits/stdc++.h>
+using namespace std;
+int Map[30][30]; 
+int dis[30][30];
+int dx[4] = {0,0,-1,1};
+int dy[4] = {1,-1,0,0};
+queue<pair<int, int> > Q;
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	freopen("input.txt", "rt", stdin);
+	int m, n, res=-10000;
+	cin>>m>>n;
+	for(int i=1; i<=n; i++){
+		for(int j=1; j<=m; j++){
+			cin>>Map[i][j];
+			if(Map[i][j]==1){
+				Q.push(make_pair(i,j));
+			}
+		}	
+	}
+	while(!Q.empty()){
+		pair <int, int> tmp = Q.front();
+		Q.pop();
+		for(int i=0; i<4; i++){
+			int xx = tmp.first + dx[i];
+			int yy = tmp.second + dy[i];
+		
+			if(xx>=1 && xx<=n && yy>=1 && yy<=m && Map[xx][yy] == 0){
+				Q.push(make_pair(xx, yy));
+				Map[xx][yy]=1;
+				dis[xx][yy]= dis[tmp.first][tmp.second] + 1;
+			}	
+		}
+	}
+	bool isFlag = true;
+	
+	for(int i=1; i<=n; i++){
+		for(int j=1; j<=m; j++){
+			if(Map[i][j]==0) isFlag = false;
+		}	
+	}
+	
+	if(isFlag){
+		for(int i=1; i<=n; i++){
+			for(int j=1; j<=m; j++){
+				if(dis[i][j]>res)res=dis[i][j];
+			}	
+		}
+		cout<<res;	
+	}
+	else cout<<-1;
+	return 0;
+}
+
+
