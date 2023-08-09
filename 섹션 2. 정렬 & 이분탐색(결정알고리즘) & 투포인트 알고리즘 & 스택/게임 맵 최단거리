@@ -1,0 +1,45 @@
+#include <vector>
+#include <queue>
+#include <iostream>
+
+using namespace std;
+
+int dx[4] = {0, 1, 0, -1};
+int dy[4] = {-1, 0, 1, 0};
+int dis[101][101]; 
+
+struct Pos {
+    int x;
+    int y;
+    Pos(int a, int b) {
+        x = a;
+        y = b;
+    }
+};
+
+queue<Pos> Q;
+
+int solution(vector<vector<int>> maps) {
+    int n = maps.size(); // 행의 개수
+    int m = maps[0].size(); // 열의 개수
+    
+    Q.push(Pos(0, 0));
+    dis[0][0] = 1; // 시작 지점에서의 거리를 1로 초기화
+    
+    while (!Q.empty()) {
+        Pos tmp = Q.front();
+        Q.pop();
+        
+        for (int i = 0; i < 4; i++) {
+            int xx = tmp.x + dx[i];
+            int yy = tmp.y + dy[i];
+            if (xx >= 0 && xx < n && yy >= 0 && yy < m && maps[xx][yy] == 1 && dis[xx][yy] == 0) {
+                Q.push(Pos(xx, yy));
+                dis[xx][yy] = dis[tmp.x][tmp.y] + 1;
+            }
+        }
+    }
+    
+    int answer = dis[n - 1][m - 1];
+    return (answer == 0) ? -1 : answer;
+}
