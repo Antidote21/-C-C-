@@ -55,3 +55,60 @@ int main(){
 	printf("%d\n", dist[e]);
 	return 0;
 }
+
+#include <bits/stdc++.h>
+#define MAX 2147483647
+using namespace std; 
+
+int res[100];
+
+struct Edge{
+	int s;
+	int e;
+	int val;
+	Edge(int a, int b, int c){
+		s = a;
+		e = b;
+		val = c;
+	}
+};
+
+int main(){
+	ios_base::sync_with_stdio(false);
+	freopen("input.txt", "rt", stdin);
+	vector<Edge> Ed;
+	int n, m, a, b, c, s, e;
+	cin>>n>>m;
+	for(int i=1; i<=m; i++){
+		cin>>a>>b>>c;
+		Ed.push_back(Edge(a,b,c));
+	}
+	for(int i=1; i<=n; i++){
+		res[i] = MAX;
+	} 
+	cin>>s>>e;
+	res[s] = 0;
+	for(int i=1; i<n; i++){
+		for(int j=0; j<Ed.size(); j++){
+			int u = Ed[j].s;
+			int v = Ed[j].e;
+			int w = Ed[j].val;
+			if(res[u]!=MAX && res[u]+w<res[v]){
+				res[v] = res[u] + w;
+			} 
+		}
+	}	
+	for(int j=0; j<Ed.size(); j++){
+		int u = Ed[j].s;
+		int v = Ed[j].e;
+		int w = Ed[j].val;
+		if(res[u]!=MAX && res[u]+w<res[v]){
+			cout<<-1;
+			exit(0);
+		}
+	}
+ 	cout<<res[e];
+	return 0;
+} 
+
+
