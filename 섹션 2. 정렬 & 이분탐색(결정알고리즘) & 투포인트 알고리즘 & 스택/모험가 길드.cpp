@@ -5,32 +5,28 @@ int main(){
 	ios_base::sync_with_stdio(false);
 	freopen("input.txt", "rt", stdin);
 	vector<int> v;
-	int n, x, res=0, isFlag=false;
+	int n, x, cnt=0, res=0;
 	cin>>n;
-	for(int i=0; i<n; i++){
-		cin>>x;
-		v.push_back(x);
-		cout<<x;
-	}
+ 	for(int i=0; i<n; i++){
+ 		cin>>x;
+ 		v.push_back(x);
+ 	}
 	
 	sort(v.begin(), v.end());
 	
 	for(int i=0; i<n; i++){
-		isFlag=false;
-		if(n>=v[i]){
-			for(int j=i; j<i+v[i]; j++){
-				if(v[j]==v[i]) isFlag = true;	
-			}
-			if(isFlag){
-				n-=v[i];
-				res++;
-			} 
+	    cnt++;	
+		if(cnt>=v[i]){
+			res++;
+			cnt=0;
 		}
-		else continue;
 	}
 	cout<<res;
 	return 0;
 }
+
+
+
 
 #include<bits/stdc++.h>
 
