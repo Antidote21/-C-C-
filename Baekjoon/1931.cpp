@@ -3,6 +3,9 @@ using namespace std;
 int n;
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
     cin >> n;
     vector<pair<int, int>> meetings;
 
@@ -24,7 +27,7 @@ int main() {
         }
     }
 
-    cout << count << endl;
+    cout << count << '\n';
 
     return 0;
 }
