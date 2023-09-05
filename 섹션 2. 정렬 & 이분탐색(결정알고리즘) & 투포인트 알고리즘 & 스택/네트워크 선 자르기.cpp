@@ -33,3 +33,31 @@ int main() {
 	cout << dy[n];
 	return 0;
 }
+
+#include <iostream>
+using namespace std;
+int dy[100];
+int n;
+
+int DFS(int k)
+{
+    if (dy[k] != 0)
+        return dy[k];
+    if (k == 1 || k == 2)
+        return dy[k];
+    else
+    {
+        dy[k] = DFS(k - 1) + DFS(k - 2);
+        return dy[k];
+    }
+}
+
+int main()
+{
+    cin >> n;
+    dy[1] = 1;
+    dy[2] = 2;
+    cout << DFS(n) << endl;
+    return 0;
+}
+
