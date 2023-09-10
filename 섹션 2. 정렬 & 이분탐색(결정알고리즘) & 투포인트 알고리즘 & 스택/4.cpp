@@ -25,3 +25,47 @@ int main(){
 	cout<<res;
 	return 0;
 }
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int dp[100];
+int arr[100];
+int n;
+
+void LIS() // Longest Increasing Subsequence
+{
+    for (int i = 0; i < n; i++)
+    {
+        dp[i] = 1;
+        for (int j = 0; j < i; j++)
+        {
+            if (arr[i] > arr[j] && dp[i] < dp[j] + 1)
+            {
+                dp[i] = dp[j] + 1;
+            }
+        }
+    }
+}
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+
+    LIS();
+    int res = 0;
+    for (int i = 0; i < n; i++)
+    {
+        res = max(dp[i], res);
+    }
+    cout << res;
+    return 0;
+}
