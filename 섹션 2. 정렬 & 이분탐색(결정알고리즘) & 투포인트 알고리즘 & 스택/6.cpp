@@ -67,3 +67,74 @@ int main(){
 	}
 	cout<<res;
 }
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+int n;
+int dp[100];
+struct stone
+{
+    int size;
+    int height;
+    int weight;
+    stone(int a, int b, int c)
+    {
+        size = a;
+        height = b;
+        weight = c;
+    }
+    bool operator<(const stone &b) const
+    {
+        return size > b.size;
+    }
+};
+
+int LIS(vector<stone> &st) // Longest Increasing Subsequence
+{
+    int res = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        dp[i] = st[i].height; // 초기 LIS 값은 해당 원소의 높이
+        for (int j = 0; j < i; j++)
+        {
+            if (st[i].weight < st[j].weight && dp[i] < dp[j] + st[i].height)
+            {
+                dp[i] = dp[j] + st[i].height;
+            }
+        }
+        res = max(res, dp[i]);
+    }
+
+    return res;
+}
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+	freopen("input.txt", "rt", stdin);
+	
+    cin >> n;
+
+    vector<stone> st;
+
+    for (int i = 0; i < n; i++)
+    {
+        int a, b, c;
+        cin >> a >> b >> c;
+        st.push_back(stone(a, b, c));
+    }
+
+    // 넓이를 기준으로 정렬
+    sort(st.begin(), st.end());
+
+    cout << LIS(st) << endl;
+
+    return 0;
+}
+
+
+
