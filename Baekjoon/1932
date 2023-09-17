@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    int n;
+    cin >> n;
+
+    vector<vector<int>> arr(n, vector<int>(n, 0)); // 2차원 벡터 arr를 생성하고 모든 요소를 0으로 초기화
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j <= i; j++){
+            cin >> arr[i][j];
+        }
+    }
+
+    vector<vector<int>> dp(n, vector<int>(n, 0)); //최대 경로 합 계산
+    dp[0][0] = arr[0][0]; //삼각형의 첫 번째 숫자로 초기화
+
+    for(int i = 1; i < n; i++){
+        for(int j = 0; j <= i; j++){
+            if(j == 0){ // 현재 행의 가장 왼쪽 열에 있는 경우
+                dp[i][j] = dp[i-1][j] + arr[i][j];
+            } else if(j == i){ //현재 행의 가장 오른쪽 열에 있는 경우
+                dp[i][j] = dp[i-1][j-1] + arr[i][j];
+            } else { //가운데 열에 있는 경우
+                dp[i][j] = max(dp[i-1][j-1], dp[i-1][j]) + arr[i][j];
+            }
+        }
+    }
+
+    int res = 0;
+    for(int j = 0; j < n; j++){
+        res = max(res, dp[n-1][j]);
+    }
+
+    cout << res << endl;
+    return 0;
+}
