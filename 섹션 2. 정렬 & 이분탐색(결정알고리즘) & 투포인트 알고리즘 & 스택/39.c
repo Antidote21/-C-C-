@@ -110,3 +110,39 @@ int main(){
 	return 0;
 }
 
+#include <iostream>
+#include <vector>
+using namespace std;
+int a[100];
+int b[100];
+
+int main()
+{
+    int n, m, p1=0, p2=0;
+    cin>>n;
+    for(int i=0; i<n; i++){
+        cin>>a[i];
+    }
+    cin>>m;
+    for(int i=0; i<m; i++){
+        cin>>b[i];
+    }
+    vector<int> c;
+    
+    while(p1<n && p2<m){
+        if(a[p1]<b[p2]){
+            c.push_back(a[p1++]);
+        }
+        else{
+            c.push_back(b[p2++]);
+        }       
+    }
+    
+    while(p1<n)c.push_back(a[p1++]);
+    while(p2<m)c.push_back(b[p2++]);
+    
+    for(int i=0; i<c.size(); i++)cout<<c[i];
+
+    return 0;
+}
+
