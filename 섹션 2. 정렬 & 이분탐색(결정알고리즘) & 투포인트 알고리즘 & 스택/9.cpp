@@ -17,3 +17,31 @@ int main(){
 	cout<<dy[m];
 	return 0;
 }
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+	freopen("input.txt", "rt", stdin);
+	int n, k, w, v;
+    cin>>n>>k;
+    
+    vector<int> dp(k+1,0);
+  
+    for(int i=1; i<=n; i++){
+    	cin>>w>>v;
+    	for(int j=w; j<=k; j++){
+    		dp[j]=max(dp[j], dp[j-w]+v);
+		}
+	}	
+	cout<<dp[k];
+    return 0;
+}
+
+
+
