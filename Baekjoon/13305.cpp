@@ -6,8 +6,8 @@ int main(){
 
     cin>>n;
 
-    vector<int> way(n-1, 0);
-    vector<int> price(n, 0);
+    vector<long long> way(n-1);
+    vector<long long > price(n);
 
     
     for(int i=0; i<n-1; i++){
@@ -18,8 +18,8 @@ int main(){
         cin>>price[i];
     }
     
-    int minPrice = way[0]*price[0];
-    int v=1000;
+    long long minPrice = way[0]*price[0];
+    long long v=price[0];
     for(int i=1; i<n-1; i++){
         v = min(v, price[i]);
         minPrice += way[i]*v;
