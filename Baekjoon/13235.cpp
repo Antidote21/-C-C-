@@ -43,3 +43,29 @@ int main() {
 
     return 0;
 }
+
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+
+	bool isFlag = true;
+	int len = 0;
+	string s;
+
+	cin >> s;
+
+	len = s.length();
+	for (int i = 0;i < len / 2;i++) {
+		if (s[i] != s[len - 1 - i])
+			isFlag = false;
+	}
+
+	if (isFlag)cout << "true";
+	else cout << "false";
+	return 0;
+}
