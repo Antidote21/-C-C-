@@ -42,3 +42,57 @@ int main() {
 
     return 0;
 }
+
+#include <iostream>
+#include <queue>
+using namespace std;
+
+void radix_sort(int a[], int n) {
+    int maxValue = 0;
+    
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+        if (i == 0 || a[i] > maxValue) {
+            maxValue = a[i];
+        }
+    }
+
+    int radix = 1;
+    while (radix < maxValue) {
+        radix *= 10;
+    }
+
+    for (int i = 1; i < radix; i *= 10) {
+        queue<int> Q[10];
+        for (int j = 0; j < n; j++) {
+            int k;
+            if (a[j] < i) k = 0;
+            else k = (a[j] / i) % 10;
+            Q[k].push(a[j]);
+        }
+
+        int idx = 0;
+        for (int j = 0; j < 10; j++) {
+            while (!Q[j].empty()) {
+                a[idx] = Q[j].front();
+                Q[j].pop();
+                idx++;
+            }
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    int a[n]; 
+    radix_sort(a, n);
+
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << endl;
+    }
+
+    return 0;
+}
+
