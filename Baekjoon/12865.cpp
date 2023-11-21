@@ -21,3 +21,30 @@ int main()
   cout << dp[k] << "\n";
   return 0;
 } 
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int N, K;
+int DP[101][100001];
+
+int main()
+{
+	cin >> N >> K;
+    vector<pair<int, int> > bag(N);
+	for (int i = 1; i <= N; i++)
+		cin >> bag[i].first >> bag[i].second;
+
+	for (int i = 1; i <= N; i++)
+	{
+		for (int j = 1; j <= K; j++)
+		{	 
+			 if (j - bag[i].first >= 0) DP[i][j] = max(DP[i - 1][j], DP[i - 1][j - bag[i].first] + bag[i].second);
+			 else DP[i][j] = DP[i - 1][j];
+		}
+	}
+	cout << DP[N][K];
+
+}
