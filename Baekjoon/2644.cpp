@@ -1,33 +1,40 @@
- #include<iostream>
-#include<vector>
+#include <iostream>
+#include <algorithm> 
+#include <vector>
 using namespace std;
-int n, a, b, m;
-vector<int> relation[100];
-int ch[100];
-int res[100];
-int cnt;
-void dfs(int v){
-    ch[v] = 1;
-    for(int i=0; i<relation[v].size(); i++){
-        int next = relation[v][i];
-        if(ch[next]==0){
-            cnt+=1;
-            res[next]=cnt;
-            dfs(next);    
-        }
-        //res[v].push_back(cnt);
-    }
+
+int n, m, ans;
+vector<int> v[101];
+int visited[101];
+
+
+void dfs(int now, int end, int num) {
+	visited[now] = 1;
+	if (now == end) {
+		ans = num;
+	}
+	for (int i = 0; i < v[now].size(); i++) {
+		int next = v[now][i];
+		if (!visited[next]) {
+			dfs(next, end, num+1);
+		}
+	}
 }
 
-int main(){
-    cin>>n>>a>>b>>m;
-    for(int i=0; i<m; i++){
-        int x, y;
-        cin>>x>>y;
-        relation[x].push_back(y);
-    }
-    dfs(1);
-    for(int i=0; i<n; i++){
-        cout<<res[i]<<endl;
-    }
+int main() {
+	int x, y;
+	cin >> n >> x>> y>> m;
+	
+	for (int i = 0; i < m; i++) {
+		int a, b;
+		cin >> a >> b;
+		v[a].push_back(b);
+		v[b].push_back(a);
+	}
+	dfs(x, y, 0);
+	if (ans != 0) {
+		cout << ans;
+	}
+	else cout << "-1";
+
 }
