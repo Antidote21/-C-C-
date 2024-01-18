@@ -1,22 +1,24 @@
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 bool solution(vector<string> phone_book) {
+    unordered_map<string, int> um;
     bool answer = true;
-    int cnt=0;
-    for(int i=0; i<phone_book.size()-1; i++){
-        for(int j=i+1; j<phone_book.size(); j++){
-            for(int k=0; k<phone_book[i].size(); k++){
-                if(phone_book[i][k]==phone_book[j][k]){
-                    answer=true;
-                }else answer = false;   
-            }
-            if(answer)cnt++;
+    for (int i = 0; i < phone_book.size(); i++) {
+        for (int j = 1; j <= phone_book[i].size(); j++) {
+            string substring = phone_book[i].substr(0, j);
+            um[substring]++;
         }
     }
-    if(cnt>0)answer=false;
-    else answer=true;
+
+    for (int i = 0; i < phone_book.size(); i++) {
+        if (um[phone_book[i]] > 1) {
+            return answer = false;
+        }
+    }
+
     return answer;
 }
