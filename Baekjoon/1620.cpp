@@ -4,35 +4,31 @@
 
 using namespace std;
 
-int main() {
-    
-    ios_base::sync_with_stdio(false);
+int main(){
+        
+    ios::sync_with_stdio(0);
     cin.tie(NULL);
     
-    int N, M;
-    cin >> N >> M;
+    int n, m;
+    cin>>n>>m;
 
-    unordered_map<string, int> name_to_number;
-    unordered_map<int, string> number_to_name;
+    unordered_map<string, int> stringToInt;
+    unordered_map<int, string> intToString;
 
-    for (int i = 0; i < N; ++i) {
+    for(int i=0; i<n; i++){
         string pokemon;
-        cin >> pokemon;
-        name_to_number[pokemon] = i + 1;
-        number_to_name[i + 1] = pokemon;
+        cin>>pokemon;
+        stringToInt.insert({pokemon, i+1});
+        intToString.insert({i+1,pokemon});
     }
-
-    for (int i = 0; i < M; ++i) {
-        string question;
-        cin >> question;
-        
-        if (isdigit(question[0])) { 
-            int num = stoi(question);
-            cout << number_to_name[num] << '\n';
-        } else { 
-            cout << name_to_number[question] << '\n';
+    
+    for(int i=0; i<m; i++){
+        string s;
+        cin>>s;
+        if(isdigit(s[0])){
+            cout<<intToString[stoi(s)]<<'\n';
+        }else{
+            cout<<stringToInt[s]<<'\n';
         }
     }
-
-    return 0;
 }
