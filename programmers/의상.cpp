@@ -5,16 +5,17 @@
 using namespace std;
 
 int solution(vector<vector<string>> clothes) {
-    unordered_map<string, int> um; 
-    for(int i = 0; i < clothes.size(); i++){
-        um[clothes[i][1]]++; 
+    int answer = 1;
+    
+    unordered_map<string, int> um;
+    
+    for(auto cloth:clothes){
+        um[cloth[1]]++;
+    }
+    
+    for(auto elem:um){
+        answer *= (elem.second + 1); 
     }
 
-    int answer = 1; 
-
-    for(auto it = um.begin(); it != um.end(); it++){
-        answer *= (it->second + 1); 
-    }
-
-    return answer - 1; 
+    return answer-1;
 }
