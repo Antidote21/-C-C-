@@ -59,3 +59,33 @@ int main() {
 	solve();
 	cout << result << endl;
 }
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+    int N;
+    cin>>N;
+    vector<int> A(N);
+    for(int i=0; i<N; i++){
+        cin>>A[i];
+    }
+    sort(A.begin(), A.end());
+    
+    vector<int> B(N/2);
+    
+    for(int i=N/2; i<N; i++){
+        B[i-N/2] = A[i];
+    }
+    sort(B.begin(), B.end(), greater<int>());
+    
+    int sum=0;
+    for(int i=0; i<N/2; i++){
+        sum += abs(A[i]-B[i]) + abs(B[i+1]-A[i]);
+        cout<<A[i]<<' '<<B[i]<<' '<<B[i+1]<<' '<<endl;
+    }
+    cout<<sum;
+}
