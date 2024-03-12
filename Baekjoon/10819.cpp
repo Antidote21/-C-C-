@@ -63,29 +63,29 @@ int main() {
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
 using namespace std;
 
 int main(){
+    vector<int> A;
     int N;
+    int sum;
+    int res=0;
+    
     cin>>N;
-    vector<int> A(N);
     for(int i=0; i<N; i++){
-        cin>>A[i];
+        int num;
+        cin>>num;
+        A.push_back(num);
     }
     sort(A.begin(), A.end());
     
-    vector<int> B(N/2);
-    
-    for(int i=N/2; i<N; i++){
-        B[i-N/2] = A[i];
+    while(next_permutation(A.begin(), A.end())){
+        sum=0;
+        for(int i=0; i<A.size()-1; i++){
+            sum += abs(A[i] - A[i+1]);
+        }
+        res = max(res, sum);
     }
-    sort(B.begin(), B.end(), greater<int>());
-    
-    int sum=0;
-    for(int i=0; i<N/2; i++){
-        sum += abs(A[i]-B[i]) + abs(B[i+1]-A[i]);
-        cout<<A[i]<<' '<<B[i]<<' '<<B[i+1]<<' '<<endl;
-    }
-    cout<<sum;
+    cout<<res;
+    return 0;
 }
