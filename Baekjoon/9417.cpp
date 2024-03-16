@@ -1,42 +1,41 @@
+#include <algorithm>
 #include <iostream>
-#include <string>
-#include <sstream>
 #include <vector>
+
 using namespace std;
 
-int gcd (int a, int b) {
-    return !b ? a : gcd(b, a % b);
+int gcd(int a, int b) {
+  if (b == 0)
+    return a;
+  return gcd(b, a % b);
 }
 
-int main () {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    
-    int t;
-    int maxGcd = -1;
-    int temp;
-    string line;
-    string num;
-    vector<int> v;
+int main() {
+  int n;
+  cin >> n;
 
-    cin >> t;
-    cin.ignore();
-    
-    while (t--) {
-        v.clear();
-        maxGcd = -1;
-        
-        getline(cin, line);
-        stringstream sstream(line);
-        while (getline(sstream, num, ' ')) 
-            v.push_back(stoi(num));
-        
-        for (int i = 0; i < v.size() - 1; ++i) { 
-            for (int j = i + 1; j < v.size(); ++j) {
-                temp = gcd(v[i], v[j]);
-                maxGcd = maxGcd < temp ? temp : maxGcd;
-            }
-        }
-        cout << maxGcd << '\n';
+  for (int i = 0; i < n; i++) {
+    vector<int> num;
+
+    int m;
+    while (cin >> m) {
+      char c = cin.get();
+      num.push_back(m);
+      if (c == '\n') {
+        break;
+      }
     }
+
+    int res = 0;
+    for (int j = 0; j < num.size(); j++) {
+      for (int k = j + 1; k < num.size(); k++) {
+        int tmp = gcd(num[j], num[k]);
+        res = max(res, tmp);
+      }
+    }
+
+    cout << res << "\n";
+  }
+
+  return 0;
 }
