@@ -92,3 +92,60 @@ int main() {
 
     return 0;
 }
+
+
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <utility>
+
+using namespace std;
+
+int N, M;
+int dx[4] = {0, 0, 1, -1};
+int dy[4] = {1, -1, 0, 0};
+
+int bfs(vector<vector<int>>& maze) {
+    vector<vector<bool>> visited(N, vector<bool>(M, false));
+    queue<pair<int, int>> q;
+    q.push(make_pair(0, 0));
+    visited[0][0] = true;
+
+    while (!q.empty()) {
+        int x = q.front().first;
+        int y = q.front().second;
+        q.pop();
+
+        if (x == N - 1 && y == M - 1) break;
+
+      
+        for (int i = 0; i < 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (nx < 0 || nx >= N || ny < 0 || ny >= M || maze[nx][ny] == 0 || visited[nx][ny]) continue;
+            q.push(make_pair(nx, ny));
+            visited[nx][ny] = true;
+            maze[nx][ny] = maze[x][y] + 1;
+        }
+    }
+
+    return maze[N - 1][M - 1];
+}
+
+int main() {
+    cin >> N >> M;
+    vector<vector<int>> maze(N, vector<int>(M));
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            char c;
+            cin >> c;
+            maze[i][j] = c - '0';
+        }
+    }
+
+    int shortestDistance = bfs(maze);
+    cout << shortestDistance << endl;
+
+    return 0;
+}
