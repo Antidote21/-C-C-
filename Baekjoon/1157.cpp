@@ -1,47 +1,39 @@
 #include <iostream>
 #include <string>
-#include <cstring>
 #include <algorithm>
 
 using namespace std;
 
-string s;
-
-int Alphabet[26];
-
 int main() {
+    string s;
     cin >> s;
-
-    memset(Alphabet, 0, sizeof(Alphabet)); 
-
-    for(int i = 0; i < s.size(); i++) {
-        char c = toupper(s[i]); 
-        if(c >= 'A' && c <= 'Z') 
-            Alphabet[c - 'A']++;
+    
+    int Alphabet[26] = {0};
+    
+    for(char c : s){
+        if(isalpha(c)){
+            char uc = toupper(c);
+            Alphabet[uc - 'A']++;
+        }
     }
-
-    int maxCnt = 0;
-    int maxIndex = -1;
-
-    for(int i = 0; i < 26; i++) {
-        if(Alphabet[i] > maxCnt) {
+    
+    int maxCnt = 0, maxIndex = 0;
+    bool isUnique = true;
+    
+    for(int i=0; i<26; i++){
+        if(Alphabet[i] > maxCnt){
             maxCnt = Alphabet[i];
             maxIndex = i;
+            isUnique = true;
+        }else if(Alphabet[i] == maxCnt){
+            isUnique = false;
         }
     }
-
-    int cnt = 0;
-    for(int i = 0; i < 26; i++) {
-        if(Alphabet[i] == maxCnt) {
-            cnt++;
-        }
+    
+    if(isUnique){
+        cout<<(char)('A' + maxIndex)<<endl;
+    }else{
+        cout<<"?"<<endl;
     }
-
-    if(cnt > 1) {
-        cout << "?" << endl;
-    } else {
-        cout << (char)(maxIndex + 'A') << endl;
-    }
-
     return 0;
 }
