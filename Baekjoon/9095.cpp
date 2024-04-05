@@ -3,29 +3,27 @@
 
 using namespace std;
 
-int main()
-{
-    ios_base::sync_with_stdio(false);
+int dp[12];
 
-    int T, n;
+int main() {
+    int T;
     cin >> T;
-    
-    vector<int> dp(12, 0);
+    vector<int> A(T);
+    vector<int> res(T);
     
     dp[1] = 1;
     dp[2] = 2;
     dp[3] = 4;
-    dp[4] = 7;
-    
-    for (int i = 5; i < 12; i++){
+   
+    for (int i = 4; i <= 11; i++) {
         dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
     }
-
-    for (int i = 0; i < T; i++)
-    {
-        cin >> n;
-        cout << dp[n] << '\n';
+    
+    for (int i = 1; i <= T; i++) {
+        int n;
+        cin>>n;
+        cout << dp[n] << endl;
     }
-
+    
     return 0;
 }
