@@ -36,3 +36,35 @@ int main() {
 
     return 0;
 }
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+    int n;
+    cin >> n;
+    
+    vector<pair<int, int>> A(n);
+    
+    for(int i=0; i<n; i++){
+        cin>>A[i].first>>A[i].second;
+    }
+    sort(A.begin(), A.end());
+    int cnt=0;
+    vector<int> dp(n, 1);
+    
+    for(int i=0; i<n; i++){
+        for(int j=0; j<i; j++){
+            if(A[i].second > A[j].second && dp[i] <= dp[j]){
+                dp[i] = dp[j] + 1;
+            }
+        }
+        cnt = max(cnt, dp[i]);
+    }
+    int res = n- cnt;
+    cout<<res<<endl;
+    return 0;
+}
