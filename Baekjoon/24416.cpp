@@ -1,40 +1,32 @@
 #include <iostream>
+
 using namespace std;
-int dy[40];
-int cnt1 = 0, cnt2 = 0;
-int fib(int n)
-{
-    if (n == 1 || n == 2)
-    {
-        cnt1++;
-        return 1;
-    }
-    else
-    {
-        return (fib(n - 1) + fib(n - 2));
+
+int fib1, fib2;
+int f[100];
+
+int Recurfib(int n){
+    if(n==1 || n==2)return 1;
+    else {
+        fib1++;
+        return Recurfib(n-1)+Recurfib(n-2);
     }
 }
 
-int fibonacci(int n)
-{
-    dy[1] = 1;
-    dy[2] = 1;
-    for (int i = 3; i <= n; i++)
-    {
-        cnt2++;
-        dy[i] = dy[i - 1] + dy[i - 2];
+int DPfib(int n){
+    f[1] = 1;
+    f[2] = 1;
+    for(int i=3; i<n; i++){
+        f[i] = f[i-1]+f[i-2];
+        fib2++;
     }
-    return dy[n];
+    return f[n];
 }
 
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+int main(){
     int n;
-    cin >> n;
-    fib(n);
-    fibonacci(n);
-    cout << cnt1 << ' ' << cnt2;
-    return 0;
+    cin>>n;
+    Recurfib(n);
+    DPfib(n);
+    cout<<fib1+1<<' '<<fib2+1;
 }
