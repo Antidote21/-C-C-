@@ -24,3 +24,32 @@ int main() {
     }
     return 0;
 }
+
+
+#include <iostream>
+#include <vector>
+
+
+using namespace std;
+
+int main(){
+    int T, N, M;
+    cin>>T;
+    for(int i=0; i<T; i++){
+        cin>>N;
+        vector<int> coin(N, 0);
+        
+        for(int j=0; j<N; j++){
+            cin>>coin[j];
+        }
+        cin>>M;
+        vector<int> dp(M+1, 0);
+        dp[0] = 1; 
+        for(int j=0; j<N; j++){
+            for(int k=coin[j]; k<=M; k++){
+                dp[k] += dp[k-coin[j]];
+            }
+        }
+        cout<<dp[M]<<endl;
+    }
+}
