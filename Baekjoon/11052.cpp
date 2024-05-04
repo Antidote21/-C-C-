@@ -16,7 +16,7 @@ int main() {
 
     for (int i = 1; i <= N; i++) {
         for (int j = 1; j <= i; j++) {
-            dp[i] = max(dp[i], dp[i - j] + Card[j]);
+            dp[i] = max(dp[i], dp[i - j] + Card[j]); //나머지 카드를 구매할 때 얻을 수 있는 최대 가격
         }
     }
 
