@@ -1,31 +1,26 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <queue>
+#include <algorithm>
+
 using namespace std;
 
 int main(){
-    int n;
-    cin >> n;
-    
-    priority_queue<int, vector<int>, greater<int>> pq_less;
-    vector<pair<int, int>> v;
-
-    for(int i=0; i<n; i++){
-        int a, b;
-        cin >> a >> b;
-        v.push_back(make_pair(a, b));
+    int N;
+    cin>>N;
+    priority_queue<pair<int, int>> Room;
+    for(int i=0; i<N; i++){
+        int S,T;
+        cin>>S>>T;
+        Room.push({S,T});
     }
-
-    sort(v.begin(), v.end());
-    
-    pq_less.push(v[0].second);
-    for(int i=1; i<n; i++){
-        pq_less.push(v[i].second);
-        while (!pq_less.empty() && pq_less.top() <= v[i].first) {
-            pq_less.pop();
+    int cnt=0;
+    while(!Room.empty()){
+        pair<int,int> top = Room.top();
+        Room.pop();
+        pair<int,int> top2 = Room.top();
+        if(top.second>=top2.first){
+            cnt++;
         }
     }
-
-    int res = pq_less.size();
-    cout << res << endl;
-
-    return 0;
+    cout<<cnt;
 }
