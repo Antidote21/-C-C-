@@ -1,53 +1,45 @@
 #include <iostream>
- 
+
 using namespace std;
- 
-int R, C, cnt = 0;
-int Map[10001][501];
-int dr[3] = {-1, 0, 1};
-int dc[3] = {1, 1, 1};
- 
-void input(){
-    string in;
-    cin >> R >> C;
-    for(int i = 0; i < R; i++){
-        cin >> in;
-        for(int j = 0; j < C; j++){
-            if(in[j] == '.') Map[i][j] = 0;
-            else Map[i][j] = 1;
-        }
-    }
-}
- 
-bool DFS(int r, int c){
-    if(c == C-1){
+
+int dy[3] = {1, 1, 1};
+int dx[3] = {-1, 0, 1};  
+int map[10000][500];
+int dp[10000][500];
+int R, C, cnt;
+
+bool dfs(int x, int y){
+    if(y == C-1){
         cnt++;
         return true;
     }
     
-    Map[r][c] = 1;
+    map[x][y] = 1;
     
     for(int i = 0; i < 3; i++){
-        int nr = r + dr[i];
-        int nc = c + dc[i];
-        if(nr >= 0 && nr < R && nc >= 0 && nc < C && !Map[nr][nc]){
-            if(DFS(nr, nc)) return true;
+        int xx = x + dx[i];
+        int yy = y + dy[i];
+        if(xx >= 0 && xx < R && yy >= 0 && yy < C && !map[xx][yy]){
+            if(dfs(xx, yy)) return true;
         }
     }
     
     return false;
 }
- 
-int main(){
-    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    
-    input();
 
-// 0번 열에서 아래로 내려가면서 dfs실행
+int main(){
+    cin >> R >> C;
+    string s;
     for(int i = 0; i < R; i++){
-        DFS(i, 0);
+        cin >> s;
+        for(int j = 0; j < C; j++){
+            if(s[j] == '.') map[i][j] = 0;
+            else map[i][j] = 1;
+        }
+    }
+
+    for(int i = 0; i < R; i++){
+        dfs(i, 0);
     }
     cout << cnt;
-    
-    return 0;
 }
