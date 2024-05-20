@@ -37,3 +37,41 @@ int main(){
     }
     
 }
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+    int N, S;
+    cin >> N >> S;
+    
+    vector<int> subSum(N);
+    
+    for(int i = 0; i < N; i++){
+        cin >> subSum[i];
+    }
+    
+    int start = 0, end = 0, sum = 0, minLength = N + 1;
+    
+    while (true) {
+        if (sum >= S) {
+            minLength = min(minLength, end - start);
+            sum -= subSum[start++];
+        } else if (end == N) {
+            break;
+        } else {
+            sum += subSum[end++];
+        }
+    }
+    
+    if (minLength == N + 1) {
+        cout << 0 << endl;
+    } else {
+        cout << minLength << endl;
+    }
+    
+    return 0;
+}
