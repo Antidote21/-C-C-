@@ -26,3 +26,32 @@ int solution(int n,  vector< vector<int> > computers){
     }
     return answer;
 }
+
+
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int ch[200];
+
+void dfs(vector<vector<int>> computers, int node){
+    ch[node] = 1;
+    for(int i=0; i<computers.size(); i++){
+        if(ch[i]!=1&&computers[node][i]==1){
+            dfs(computers, i);
+        }       
+    }
+}
+
+int solution(int n, vector<vector<int>> computers) {
+    int answer = 0;
+    
+    for(int i=0; i<n; i++){
+        if(ch[i]!=1){
+            dfs(computers, i);
+            answer++;
+        }
+    }
+    return answer;
+}
