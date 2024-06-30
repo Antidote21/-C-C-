@@ -25,3 +25,33 @@ string solution(string number, int k) {
     
     return number;
 }
+
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+string solution(string number, int k) {
+    string answer = "";
+    vector<string> result;
+    vector<bool> v(number.size());
+    fill(v.begin(), v.begin() + number.size() - k, true);
+
+    do {
+        answer = "";
+        for (int i = 0; i < number.size(); i++) {
+            if (v[i]) {
+                answer += number[i];
+            }
+        }
+        if (answer!="") {
+            result.push_back(answer);
+        }
+    } while (prev_permutation(v.begin(), v.end()));
+
+    sort(result.begin(), result.end(), greater<>());
+
+    answer = result[0];
+    return answer;
+}
