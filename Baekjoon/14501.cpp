@@ -56,3 +56,33 @@ int main(){
     return 0;
 }
 
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+    int N;
+    cin>>N;
+    vector<pair<int, int> > TP(N+1);
+    vector<int> dp(N+2, 0);
+    
+    for(int i=1; i<=N; i++){
+       int t, p;
+       cin>>t>>p;
+       TP[i] = {t, p};
+    }
+    
+    for(int i=1; i<= N; i++){
+            if(i+TP[i].first <= N+1){
+                dp[i+TP[i].first] = max(dp[i + TP[i].first], dp[i] + TP[i].second);
+            }
+            dp[i+1] = max(dp[i], dp[i+1]);
+    }
+
+    cout<<dp[N+1];
+}
+
+
