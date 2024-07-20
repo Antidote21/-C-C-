@@ -68,3 +68,38 @@ int main(){
     cout<<res<<endl;
     return 0;
 }
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main(){
+    int n;
+    cin >> n;
+    vector<pair<int, int>> pole(n);
+    vector<int> dp(n, 1); 
+
+    for(int i = 0; i < n; i++){
+        int a, b;
+        cin >> a >> b;
+        pole[i] = {a, b}; 
+    }
+
+    sort(pole.begin(), pole.end());
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < i; j++){
+            if(pole[j].second < pole[i].second){
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+    }
+    for(auto elem: dp){
+        cout<<elem<<" ";
+    }
+    int res = *max_element(dp.begin(), dp.end());
+    cout << n-res;
+
+    return 0;
+}
