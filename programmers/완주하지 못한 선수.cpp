@@ -49,5 +49,30 @@ string solution(vector<string> participant, vector<string> completion) {
 
     return "";
 }
-  
+
+#include <string>
+#include <vector>
+#include <map>
+
+using namespace std;
+
+string solution(vector<string> participant, vector<string> completion) {
+    multimap<string, int> player;
+    string res = "";
+    for(int i=0; i<participant.size(); i++){
+        player.insert({participant[i],i});
+    }
+    for(int i=0; i<completion.size(); i++){    
+        auto it = player.find(completion[i]);
+        if (it != player.end()) {
+            player.erase(it); // 첫 번째로 일치하는 요소만 제거
+        }
+       
+    }
+    
+    res = player.begin() -> first;
+
+    return res;
+}
+
 
