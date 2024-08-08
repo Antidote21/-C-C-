@@ -53,9 +53,8 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
 
 using namespace std;
 
-// Song 구조체 정의
+// Song 구조체 정의 (genre 제거)
 struct Song {
-    string genre;
     int play;
     int id;
 };
@@ -66,13 +65,15 @@ struct GenreInfo {
     int totalPlay;
 };
 
-// Song 정렬을 위한 비교 함수
+// Song 정렬을 위한 비교 함수 play 내림차순 id 오름차순
 bool compareSongs(const Song& a, const Song& b) {
-    if (a.play == b.play) return a.id < b.id;
+    if (a.play == b.play) { // play 값이 같을 경우 id로 비교
+        return a.id < b.id;
+    }
     return a.play > b.play;
 }
 
-// GenreInfo 정렬을 위한 비교 함수
+// GenreInfo 정렬을 위한 비교 함수 내림차순
 bool compareGenres(const GenreInfo& a, const GenreInfo& b) {
     return a.totalPlay > b.totalPlay;
 }
@@ -84,7 +85,7 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
 
     // 입력 데이터를 기반으로 데이터 구조 초기화
     for (int i = 0; i < genres.size(); i++) {
-        genreMap[genres[i]].push_back({genres[i], plays[i], i});
+        genreMap[genres[i]].push_back({plays[i], i});
         genrePlayCount[genres[i]] += plays[i];
     }
 
