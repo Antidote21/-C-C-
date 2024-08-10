@@ -61,4 +61,24 @@ vector<int> solution(vector<int> progresses, vector<int> speeds) {
     }
     return answer;
 }
- 
+
+#include <vector>
+
+using namespace std;
+
+vector<int> solution(vector<int> progresses, vector<int> speeds) {
+    vector<int> answer;
+    int size = speeds.size();
+    int current_day = 0; 
+    for (int i = 0; i < size; ++i) {
+        int remaining_work = 100 - progresses[i];
+        int required_days = (remaining_work + speeds[i] - 1) / speeds[i];   
+        if (current_day < required_days) {
+            current_day = required_days;
+            answer.push_back(1); 
+        } else {
+            answer.back()++;
+        }
+    }
+    return answer;
+}
