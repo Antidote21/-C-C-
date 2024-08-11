@@ -111,3 +111,54 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
 
     return answer;
 }
+
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+struct Song{
+    int id;
+    int play;
+    Song(int a, int b) : id(a), play(b) {}
+    
+    bool operator>(const Song& other) const {
+        if (play == other.play) {
+            return id < other.id; // play가 같으면 id가 작은 순으로 (오름차순)
+        }
+        return play > other.play; // play가 큰 순으로 (내림차순)
+    }
+};
+
+vector<int> solution(vector<string> genres, vector<int> plays) {
+    unordered_map<string, vector<Song>> um;
+    unordered_map<string, int> genrePlay;
+
+    for (int i = 0; i < genres.size(); i++) {
+        um[genres[i]].emplace_back(i, plays[i]);
+        genrePlay[genres[i]] += plays[i];
+    }
+
+    vector<string> sortedGenres;
+    for (const auto& pair : genrePlay) {
+        sortedGenres.push_back(pair.first);
+    }
+
+    sort(sortedGenres.begin(), sortedGenres.end(), [&](const string& a, const string& b) {
+        return genrePlay[a] > genrePlay[b];
+    });
+
+    vector<int> answer;
+    for (const string& genre : sortedGenres) {
+        auto& songs = um[genre];
+        sort(songs.begin(), songs.end(), greater<Song>());
+
+        for (int i = 0; i < min(2, (int)songs.size()); i++) {
+            answer.push_back(songs[i].id);
+        }
+    }
+
+    return answer;
+}
