@@ -82,3 +82,39 @@ vector<int> solution(vector<int> progresses, vector<int> speeds) {
     }
     return answer;
 }
+
+#include <string>
+#include <vector>
+#include <queue>
+#include <cmath>
+
+#include <iostream>
+
+using namespace std;
+
+vector<int> solution(vector<int> progresses, vector<int> speeds) {
+    vector<int> answer;
+    queue<int> q;
+    
+    int n = progresses.size();
+    
+    for(int i=0; i<n; i++){
+        int cal = ceil((100 - progresses[i]) / double(speeds[i]));
+        q.push(cal);
+    }
+    
+    while(!q.empty()){
+        int current = q.front();
+        q.pop();
+        int cnt = 1;
+        
+        while(!q.empty() && q.front() <= current){
+            cnt++;
+            q.pop();
+        }
+        
+        answer.push_back(cnt);
+    }
+    
+    return answer;
+}
