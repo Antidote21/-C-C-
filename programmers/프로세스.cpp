@@ -62,3 +62,32 @@ int solution(vector<int> priorities, int location) {
     }
     return answer;
 }
+
+
+#include <string>
+#include <vector>
+#include <queue>
+
+#include <iostream>
+
+using namespace std;
+// priority_queue<int> pq;
+queue <pair<int, int>> Q;
+int solution(vector<int> priorities, int location) {
+    int answer = 0;
+    for(int i=0; i<priorities.size(); i++){
+        Q.push({priorities[i], i});
+    }
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    for(int i=0; i<priorities.size(); i++){
+        pair<int, int> tmp = Q.front();
+        pq.push({tmp.first, tmp.second});
+        Q.pop();
+    }
+    while(!Q.empty()){
+        pair<int, int> tmp = pq.top();
+        pq.pop();
+    }
+    
+    return answer;
+}
