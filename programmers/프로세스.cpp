@@ -67,27 +67,39 @@ int solution(vector<int> priorities, int location) {
 #include <string>
 #include <vector>
 #include <queue>
-
 #include <iostream>
 
 using namespace std;
-// priority_queue<int> pq;
-queue <pair<int, int>> Q;
+
 int solution(vector<int> priorities, int location) {
     int answer = 0;
-    for(int i=0; i<priorities.size(); i++){
+    queue<pair<int, int>> Q;
+    priority_queue<int> pq;
+
+    // 큐와 우선순위 큐에 요소를 삽입
+    for(int i = 0; i < priorities.size(); i++) {
         Q.push({priorities[i], i});
+        pq.push(priorities[i]);
     }
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-    for(int i=0; i<priorities.size(); i++){
-        pair<int, int> tmp = Q.front();
-        pq.push({tmp.first, tmp.second});
+
+    while(!Q.empty()) {
+        pair<int, int> current = Q.front();
         Q.pop();
+
+        // 현재 요소가 우선순위 큐의 가장 큰 값과 동일한 경우
+        if(current.first == pq.top()) {
+            pq.pop(); // 우선순위 큐에서 해당 요소 제거
+            answer++; // 출력 순서 증가
+
+            // 만약 위치가 우리가 찾고자 하는 위치라면 답을 반환
+            if(current.second == location) {
+                return answer;
+            }
+        } else {
+            // 우선순위가 높지 않다면 다시 큐의 끝에 넣기
+            Q.push(current);
+        }
     }
-    while(!Q.empty()){
-        pair<int, int> tmp = pq.top();
-        pq.pop();
-    }
-    
+
     return answer;
 }
