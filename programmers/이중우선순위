@@ -1,0 +1,42 @@
+#include <string>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <sstream>
+#include <deque>
+
+using namespace std;
+
+vector<int> solution(vector<string> operations) {
+    vector<int> answer;
+    deque<int> dq;
+    // prioirty_queue<int> pq;
+    string word;
+    int number;
+    for(int i=0; i<operations.size(); i++){
+        stringstream ss(operations[i]);
+        ss >> word;
+        ss >> number;
+        if(word == "I"){
+            dq.push_back(number);
+            sort(dq.begin(), dq.end());
+        }else if(word == "D"){
+            if(dq.empty())continue;
+            if(number == 1){
+                dq.pop_back();
+            }else{
+                dq.pop_front();
+            }
+        }
+    }
+    
+    if(dq.empty()) {
+        answer.push_back(0);  
+        answer.push_back(0);  
+    } else {
+        answer.push_back(dq.back());  
+        answer.push_back(dq.front()); 
+    }
+    
+    return answer;
+}
