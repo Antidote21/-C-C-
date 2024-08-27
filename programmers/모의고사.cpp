@@ -28,3 +28,34 @@ vector<int> solution(vector<int> answers) {
     
     return answer;
 }
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> solution(vector<int> answers) {
+    vector<int> answer;
+    
+    vector<int> a = {1,2,3,4,5};
+    vector<int> b = {2,1,2,3,2,4,2,5};
+    vector<int> c = {3,3,1,1,2,2,4,4,5,5};
+
+    vector<int> cnt(3);
+    
+    for(int i=0; i<answers.size(); i++){
+        if(a[i%5] == answers[i]) cnt[0]++;  
+        if(b[i%8] == answers[i]) cnt[1]++; 
+        if(c[i%10] == answers[i]) cnt[2]++;
+    }
+    
+    int result = *max_element(cnt.begin(), cnt.end());
+    
+    if(cnt[0] == result) answer.push_back(1);
+    if(cnt[1] == result) answer.push_back(2);
+    if(cnt[2] == result) answer.push_back(3);
+    
+    return answer;
+}
