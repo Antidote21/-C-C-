@@ -32,3 +32,51 @@ int solution(string numbers) {
     answer = ans.size();
     return answer;
 }
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <unordered_set>
+
+using namespace std;
+
+// 소수 판별 함수
+bool is_prime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+// 모든 조합을 생성하는 함수
+void generate_permutations(string numbers, string current, unordered_set<int>& unique_numbers) {
+    if (!current.empty()) {
+        int num = stoi(current);
+        unique_numbers.insert(num);
+    }
+    for (int i = 0; i < numbers.size(); i++) {
+        generate_permutations(numbers.substr(0, i) + numbers.substr(i + 1), current + numbers[i], unique_numbers);
+    }
+}
+
+int solution(string numbers) {
+    unordered_set<int> unique_numbers;
+
+    // 모든 숫자 조합을 생성
+    generate_permutations(numbers, "", unique_numbers);
+
+    // 소수 개수를 세기 위한 변수
+    int prime_count = 0;
+
+    // 각 숫자가 소수인지 확인
+    for (int num : unique_numbers) {
+        if (is_prime(num)) {
+            prime_count++;
+        }
+    }
+
+    return prime_count;
+}
