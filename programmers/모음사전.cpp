@@ -29,3 +29,23 @@ int solution(string word) {
     
     return answer;
 }
+
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(string word) {
+    vector<char> aeiou = {'A', 'E', 'I', 'O', 'U'};
+    vector<int> weights = {781, 156, 31, 6, 1};
+    
+    int answer = 0;
+    
+    for(int i=0; i<word.length(); i++){
+        int idx = find(aeiou.begin(), aeiou.end(), word[i]) - aeiou.begin();
+        answer += idx * weights[i] + 1;
+    }
+    
+    return answer;
+}
