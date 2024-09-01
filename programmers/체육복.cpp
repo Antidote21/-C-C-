@@ -92,3 +92,40 @@ int solution(int n, vector<int> lost, vector<int> reserve) {
     }
     return answer;
 }
+
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(int n, vector<int> lost, vector<int> reserve) {
+    vector<int> students(n, 1);
+    
+    for (int l : lost) {
+        students[l - 1]--;
+    }
+    
+    for (int r : reserve) {
+        students[r - 1]++;
+    }
+    
+    for (int i = 0; i < n; i++) {
+        if (i > 0 && students[i] == 2 && students[i - 1] == 0) {
+            students[i]--;
+            students[i - 1]++;
+        }
+        else if (i < n - 1 && students[i] == 2 && students[i + 1] == 0) {
+            students[i]--;
+            students[i + 1]++;
+        }
+    }
+    
+    int answer = 0;
+    for (int s : students) {
+        if (s > 0) {
+            answer++;
+        }
+    }
+    
+    return answer;
+}
