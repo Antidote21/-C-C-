@@ -129,3 +129,44 @@ int solution(int n, vector<int> lost, vector<int> reserve) {
     
     return answer;
 }
+
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(int n, vector<int> lost, vector<int> reserve) {
+    vector<int> students(n, 1);
+
+    // 잃어버린 학생 수에서 빼고, 여벌이 있는 학생 수 더하기
+    for (int l : lost) {
+        students[l - 1]--;
+    }
+    for (int r : reserve) {
+        students[r - 1]++;
+    }
+
+    // 체육복을 빌려주는 로직
+    for (int i = 0; i < n; i++) {
+        if (students[i] == 0) { // 체육복을 잃어버린 경우
+            if (i > 0 && students[i - 1] == 2) { // 앞에 여벌이 있는 학생이 있으면
+                students[i]++;
+                students[i - 1]--;
+            } else if (i < n - 1 && students[i + 1] == 2) { // 뒤에 여벌이 있는 학생이 있으면
+                students[i]++;
+                students[i + 1]--;
+            }
+        }
+    }
+
+    // 체육복을 가진 학생의 수를 계산
+    int answer = 0;
+    for (int s : students) {
+        if (s > 0) {
+            answer++;
+        }
+    }
+
+    return answer;
+}
+
