@@ -70,3 +70,40 @@ int solution(vector<vector<int> > maps)
     }
     return dist[n-1][m-1] == 0 ? -1 : dist[n-1][m-1];
 }
+
+#include<vector>
+#include<queue>
+#include<algorithm>
+using namespace std;
+
+int dx[4] = {0,0,-1,1};
+int dy[4] = {1,-1,0,0};
+int dist[100][100];
+
+int solution(vector<vector<int> > maps)
+{
+    int n = maps.size();
+    int m = maps[0].size();
+    
+    queue<pair<int, int>> Q;
+    Q.push({0,0});
+    dist[0][0] = 1;
+    
+    while(!Q.empty()){
+        pair<int, int> tmp = Q.front();
+        Q.pop();
+        
+        for(int i=0; i<4; i++){
+            
+            int xx = tmp.first+dx[i];
+            int yy = tmp.second+dy[i];
+            
+            if(xx < 0 || yy < 0 || xx >= n || yy>=m || dist[xx][yy] != 0 || maps[xx][yy] == 0)continue;
+            
+            dist[xx][yy] = dist[tmp.first][tmp.second]+1;
+            Q.push({xx, yy});
+            
+        }
+    }
+    return dist[n-1][m-1] == 0 ? -1 : dist[n-1][m-1];
+}
