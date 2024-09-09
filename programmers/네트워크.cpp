@@ -55,3 +55,42 @@ int solution(int n, vector<vector<int>> computers) {
     }
     return answer;
 }
+
+#include <string>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+int ch[200];
+
+void bfs(vector<vector<int>> computers, int node){
+    queue<int> q;
+    q.push(node);
+    ch[node] = 1;
+    
+    while(!q.empty()){
+        int curr = q.front();
+        q.pop();
+        
+        for(int i=0; i<computers.size(); i++){
+            if(ch[i] != 1 && computers[curr][i] == 1){
+                q.push(i);
+                ch[i] = 1;
+            }
+        }
+    }
+}
+
+int solution(int n, vector<vector<int>> computers) {
+    int answer = 0;
+    
+    for(int i=0; i<n; i++){
+        if(ch[i]!=1){
+            bfs(computers, i);
+            answer++;
+        }
+    }
+    return answer;
+}
+
