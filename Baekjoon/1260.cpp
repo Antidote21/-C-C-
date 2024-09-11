@@ -96,3 +96,67 @@ int main(){
     }
     dfs_iterative(v);
 }
+
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+int ch1[1000];  
+int ch2[1000];  
+
+void dfs(vector<vector<int>>& graph, int start, int cnt, int N){
+    if(cnt == N) return;
+    else {
+        cout << start << " ";
+        for(int i = 0; i < graph[start].size(); i++){
+            int next = graph[start][i];
+            if(ch1[next] == 0){
+                ch1[next] = 1;
+                dfs(graph, next, cnt + 1, N);
+            }
+        }
+    }
+}
+
+void bfs(vector<vector<int>>& graph, int start){
+    queue<int> Q;
+    Q.push(start);
+    ch2[start] = 1;
+    
+    while(!Q.empty()){
+        int node = Q.front();
+        Q.pop();
+        cout << node << " "; 
+        
+        for(int i = 0; i < graph[node].size(); i++){
+            int next = graph[node][i];
+            if(ch2[next] == 0){
+                ch2[next] = 1;
+                Q.push(next);
+            }
+        }
+    }
+}
+
+int main(){
+    int N, M, V;
+    cin >> N >> M >> V;
+
+    vector<vector<int>> graph(N + 1);
+
+    for(int i = 0; i < M; i++){
+        int a, b;
+        cin >> a >> b;
+        graph[a].push_back(b);
+        graph[b].push_back(a); 
+    }
+
+    ch1[V] = 1;  
+    dfs(graph, V, 0, N);
+    cout << endl;
+
+    bfs(graph, V);
+
+    return 0;
+}
