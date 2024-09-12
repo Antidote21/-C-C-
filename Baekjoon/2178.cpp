@@ -149,3 +149,57 @@ int main() {
 
     return 0;
 }
+
+#include <iostream>
+#include <queue>
+#include <tuple>
+
+using namespace std;
+
+int dx[4] = {0, 0, -1, 1};
+int dy[4] = {1, -1, 0, 0};
+int map[100][100];
+int dist[100][100];  // 거리를 기록할 배열
+int N, M;
+
+void bfs(int x, int y) {
+    queue<pair<int, int>> q;
+    q.push({x, y});
+    dist[x][y] = 1;  // 시작점은 1칸
+
+    while (!q.empty()) {
+        int cur_x, cur_y;
+        tie(cur_x, cur_y) = q.front();  // 큐의 현재 위치
+        q.pop();
+
+        for (int i = 0; i < 4; i++) {
+            int xx = cur_x + dx[i];
+            int yy = cur_y + dy[i];
+
+            // 범위 밖이거나 벽이거나 이미 방문한 경우 패스
+            if (xx < 0 || yy < 0 || xx >= N || yy >= M) continue;
+            if (map[xx][yy] == 0 || dist[xx][yy] > 0) continue;
+
+            dist[xx][yy] = dist[cur_x][cur_y] + 1;  // 이전 거리 + 1
+            q.push({xx, yy});
+        }
+    }
+}
+
+int main() {
+    cin >> N >> M;
+    for (int i = 0; i < N; i++) {
+        string line;
+        cin >> line;
+        for (int j = 0; j < M; j++) {
+            map[i][j] = line[j] - '0';  // 문자열을 숫자로 변환
+        }
+    }
+
+    bfs(0, 0);  // (0, 0)에서 시작
+
+    // (N-1, M-1)의 거리 출력
+    cout << dist[N-1][M-1] << endl;
+
+    return 0;
+}
