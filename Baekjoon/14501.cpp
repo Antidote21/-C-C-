@@ -85,4 +85,37 @@ int main(){
     cout<<dp[N+1];
 }
 
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int N;
+    cin >> N;
+
+    vector<int> T(N + 1);  // 상담 기간
+    vector<int> P(N + 1);  // 상담 금액
+    vector<int> dp(N + 1); // dp[i]는 i번째 날부터 퇴사일까지 벌 수 있는 최대 수익
+
+    // 상담 기간과 금액 입력 받기
+    for (int i = 1; i <= N; ++i) {
+        cin >> T[i] >> P[i];
+    }
+
+    // 역순으로 DP 테이블 채우기
+    for (int i = N; i > 0; --i) {
+        if (i + T[i] - 1 > N) { // 상담 기간이 퇴사일을 넘으면 상담 불가
+            dp[i] = dp[i + 1];
+        } else {
+            dp[i] = max(dp[i + 1], P[i] + dp[i + T[i]]);
+        }
+    }
+
+    // 첫째 날부터 시작했을 때의 최대 이익 출력
+    cout << dp[1] << endl;
+
+    return 0;
+}
 
