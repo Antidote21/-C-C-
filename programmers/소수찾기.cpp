@@ -80,3 +80,41 @@ int solution(string numbers) {
 
     return prime_count;
 }
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <cmath>
+#include <unordered_set>
+
+using namespace std;
+
+bool is_prime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int solution(string numbers) {
+    unordered_set<int> unique_numbers;
+    sort(numbers.begin(), numbers.end());  
+    
+    do {
+        for (int i = 1; i <= numbers.size(); i++) {
+            int num = stoi(numbers.substr(0, i));
+            unique_numbers.insert(num);
+        }
+    } while (next_permutation(numbers.begin(), numbers.end()));  
+    
+    int prime_count = 0;
+    
+    for (int num : unique_numbers) {
+        if (is_prime(num)) {
+            prime_count++;
+        }
+    }
+    
+    return prime_count;
+}
