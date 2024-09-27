@@ -1,58 +1,60 @@
-#include <iostream>
+#include <string>
 #include <vector>
+#include <cmath>  
+#include <cstring>  
 #include <algorithm>
-#include <cmath>
-#include <cstring>
 
 using namespace std;
 
-vector<int> graph[101];
-bool visited[101];
-
-int dfs(int node) {
+int dfs(int node, vector<vector<int>>& graph, bool visited[]) {
     visited[node] = true;
-    int count = 1;  // 현재 노드 포함
+    int size = 1;  
     
-    for (int neighbor : graph[node]) {
-        if (!visited[neighbor]) {
-            count += dfs(neighbor);
+    for(int next : graph[node]) {
+        if (!visited[next]) {
+            size += dfs(next, graph, visited);
         }
     }
     
-    return count;
+    return size;
 }
 
 int solution(int n, vector<vector<int>> wires) {
-    int min_diff = n;  // 최대 송전탑 개수 차이의 초기값은 n으로 설정
+    vector<vector<int>> graph(n + 1);
     
-    // 그래프 구성
-    for (const auto& wire : wires) {
-        graph[wire[0]].push_back(wire[1]);
-        graph[wire[1]].push_back(wire[0]);
+  
+    for(int i = 0; i < wires.size(); i++) {
+        int a = wires[i][0];
+        int b = wires[i][1];
+        graph[a].push_back(b);
+        graph[b].push_back(a);
     }
     
-    // 각 간선을 하나씩 제거하고 트리 분할
-    for (const auto& wire : wires) {
-        // 초기화
+    int min_diff = n;
+
+    for(int i = 0; i < wires.size(); i++) {
+        int a = wires[i][0];
+        int b = wires[i][1];
+        
+       
+        graph[a].erase(find(graph[a].begin(), graph[a].end(), b));
+        graph[b].erase(find(graph[b].begin(), graph[b].end(), a));
+        
+       
+        bool visited[n + 1];
         memset(visited, false, sizeof(visited));
         
-        // 간선 제거
-        int u = wire[0], v = wire[1];
         
-        // u와 v 간의 간선을 끊음
-        graph[u].erase(remove(graph[u].begin(), graph[u].end(), v), graph[u].end());
-        graph[v].erase(remove(graph[v].begin(), graph[v].end(), u), graph[v].end());
+        int subtree_size = dfs(a, graph, visited);  
+        int other_subtree_size = n - subtree_size;  
         
-        // 두 서브트리의 크기를 계산
-        int subtree_size = dfs(u);
-        int other_subtree_size = n - subtree_size;
+  
+        int diff = abs(subtree_size - other_subtree_size);
+        min_diff = min(min_diff, diff);
         
-        // 차이의 절대값 계산
-        min_diff = min(min_diff, abs(subtree_size - other_subtree_size));
-        
-        // 간선 복구
-        graph[u].push_back(v);
-        graph[v].push_back(u);
+     
+        graph[a].push_back(b);
+        graph[b].push_back(a);
     }
     
     return min_diff;
